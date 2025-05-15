@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fama Barber Shop and Beauty Salon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #181818;
+      color: #e0e0e0;
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    /* Animated Background */
+    .bg-animate {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -2;
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl_TEz3qOKJCnyNytF2RtZvcPmWZik_IwMxg&s') center/cover no-repeat;
+      background-color: #222;
+      animation: kenburns 18s ease-in-out infinite alternate;
+      filter: brightness(0.65) blur(1px);
+    }
+    @keyframes kenburns {
+      0% { transform: scale(1) translateY(0);}
+      100% { transform: scale(1.1) translateY(-20px);}
+    }
+    /* Overlay */
+    .overlay-animate {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(120deg, rgba(24,24,24,0.55) 60%, rgba(0,0,0,0.7) 100%);
+      animation: fadeInOverlay 2.2s;
+    }
+    @keyframes fadeInOverlay {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .floating-tools, .floating-tools2 {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.13;
+      z-index: 0;
+    }
+    .floating-tools {
+      left: 10vw;
+      top: 60vh;
+      width: 90px;
+      height: 90px;
+      animation: floatTools 20s linear infinite alternate;
+    }
+    .floating-tools2 {
+      right: 12vw;
+      top: 25vh;
+      width: 70px;
+      height: 70px;
+      animation: floatTools2 22s linear infinite alternate;
+    }
+    @keyframes floatTools {
+      0% { transform: translateY(0) rotate(-8deg);}
+      100% { transform: translateY(-120px) rotate(12deg);}
+    }
+    @keyframes floatTools2 {
+      0% { transform: translateY(0) rotate(8deg);}
+      100% { transform: translateY(90px) rotate(-14deg);}
+    }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 400px;
+      background: url('https://imgs.search.brave.com/D8lySgQ6RYxyURLmxjWJjcsAFH0MDpU-NtpfLulmQUI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tYXJr/ZXRwbGFjZS5jYW52/YS5jb20vRUFGQy1l/YmpYSVkvMS8wLzE2/MDB3L2NhbnZhLWJs/YWNrLSYtd2hpdGUt/cGFsZS1ibHVlLXZp/bnRhZ2UtYmFyYmVy/c2hvcC1idXNpbmVz/cy1jYXJkLW12UWZo/d3RMQWdjLmpwZw') center/cover no-repeat fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      z-index: 1;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(20,20,20,0.72);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      padding: 2rem 1rem;
+      animation: fadeInDown 1.2s cubic-bezier(.6,.2,.1,1);
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-60px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+  h1
+Specificity: (0,0,1)
+ {
+    font-size: 2.7rem;
+    letter-spacing: 1.5px;
+    background: linear-gradient(90deg, #fbfbfb 0%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #fff;
+    font-weight: 800;
+    text-shadow: 1px 0px 8px #0009;
+    margin-bottom: 0.5em;
+}
+    /* Barber Pole */
+    .barber-pole {
+      margin: 1.5rem auto 0.5rem auto;
+      width: 64px; height: 220px;
+      position: relative;
+      animation: fadeInBarber 1.7s cubic-bezier(.6,.2,.1,1);
+    }
+    @keyframes fadeInBarber {
+      from { opacity: 0; transform: scale(0.7);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    .barber-pole-body {
+      width: 64px; height: 160px; margin: 0 auto;
+      border-radius: 20px;
+      background: repeating-linear-gradient(
+        -45deg, #fff 0 12px, #e74c3c 12px 24px, #3498db 24px 36px
+      );
+      background-size: 36px 36px;
+      animation: barberpole 1.5s linear infinite;
+      box-shadow: 0 2px 8px #0007;
+    }
+    @keyframes barberpole {
+      0% { background-position: 0 0; }
+      100% { background-position: 36px 36px; }
+    }
+    .barber-cap, .barber-base {
+      width: 56px; height: 16px;
+      background: #fff;
+      border-radius: 10px 10px 10px 10px/18px 18px 8px 8px;
+      margin: 0 auto;
+      box-shadow: 0 2px 6px #0003;
+    }
+    .barber-cap { margin-bottom: 2px;}
+    .barber-base { margin-top: 2px;}
+    /* Animated Buttons */
+    .cta-buttons {
+      display: flex; gap: 1rem; margin: 2em auto 1em auto; justify-content: center; flex-wrap: wrap;
+    }
+    .cta-buttons a, .book-now-btn {
+      background: linear-gradient(90deg,#f5d020 0%,#f53803 100%);
+      color: #181818; text-decoration: none; padding: 1em 2em;
+      border-radius: 12px; font-weight: bold; font-size: 1.1em;
+      box-shadow: 0 0 12px #f5d02055;
+      transition: transform 0.3s, box-shadow 0.3s, color 0.2s;
+      position: relative; overflow: hidden; z-index: 1;
+      margin-bottom: 0.5em;
+      display: inline-block;
+      outline: none;
+    }
+    .cta-buttons a:hover, .book-now-btn:hover, .cta-buttons a:focus, .book-now-btn:focus {
+      transform: scale(1.07);
+      color: #fff;
+      box-shadow: 0 0 20px #f5380388, 0 0 0 3px #f5d02044;
+    }
+    .book-now-btn {
+      margin-left: 0.5em;
+      background: linear-gradient(90deg,#f5d020 0%,#f53803 100%);
+      color: #fff;
+      font-size: 1.15em;
+      letter-spacing: 1.2px;
+      border-radius: 14px;
+      box-shadow: 0 0 12px #f5d02099;
+    }
+    /* Info/Main Section */
+    main {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: rgba(34,34,34,0.90);
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.23);
+      backdrop-filter: blur(6px);
+    }
+    main ul {
+      list-style: none;
+      padding: 0;
+      margin: 1em 0 2em 0;
+    }
+    main li {
+      color: #ccc;
+      margin-bottom: 0.7em;
+      font-size: 1.08em;
+    }
+    main a {
+      color: #f5d020;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    main a:hover, main a:focus {
+      color: #f53803;
+      outline: none;
+    }
+    .services-block {
+      background: linear-gradient(90deg,#232526 0%,#414345 100%);
+      padding: 1.3em 1em;
+      border-radius: 12px;
+      margin-bottom: 2em;
+      box-shadow: 0 2px 14px #0002;
+    }
+    .services-block h2 {
+      margin-top: 0;
+      font-size: 1.3em;
+      background: linear-gradient(90deg,#f5d020 0%,#f53803 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+    .services-block ul {
+      margin: 0.6em 0 0 0;
+      padding: 0 0 0 1.2em;
+    }
+    .visit-block {
+      font-size: 1.09rem;
+      margin-bottom: 0.5em;
+      color: #f3f3f3;
+      background: rgba(50,50,50,0.18);
+      border-radius: 8px;
+      padding: 1em;
+      box-shadow: 0 2px 8px #0002;
+    }
+    /* Map Section */
+    .map-section {
+      position: relative;
+      overflow: hidden;
+      max-width: 900px;
+      margin: 2.5rem auto;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.24);
+      background: rgba(34,34,34,0.92);
+      padding: 2rem 1rem 2rem 1rem;
+      z-index: 2;
+    }
+    .map-title {
+      font-size: 1.5rem;
+      color: #f5d020;
+      margin-bottom: 1em;
+      background: linear-gradient(90deg,#f5d020 0%,#f53803 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .map-row {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .map-container {
+      flex: 2 1 340px;
+      min-width: 280px;
+      max-width: 600px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 18px #0005;
+      background: #222b;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 340px;
+      border: 0;
+      border-radius: 14px;
+      display: block;
+    }
+    .map-cta {
+      flex: 1 1 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 1.2rem;
+    }
+    .map-cta .book-now-btn {
+      margin: 0;
+      width: 100%;
+      max-width: 220px;
+      font-size: 1.15em;
+      padding: 1em 0;
+    }
+    .map-cta p {
+      color: #fff;
+      margin: 1.5em 0 0 0;
+      font-size: 1.1em;
+      background: rgba(0,0,0,0.18);
+      border-radius: 10px;
+      padding: 1em;
+      box-shadow: 0 2px 8px #0002;
+    }
+    /* Gallery Section */
+    .gallery-section {
+      max-width: 1000px;
+      margin: 3rem auto 2rem auto;
+      padding: 2rem 1rem;
+      background: rgba(34, 34, 34, 0.88);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.16);
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #f5d020;
+      background: linear-gradient(90deg,#f5d020 0%,#f53803 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .slider {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(.7,.2,.1,1);
+      will-change: transform;
+    }
+    .gallery-item {
+      min-width: 220px;
+      margin: 0 1rem;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px #0003;
+      background: #222;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .gallery-item img {
+      width: 100%; height: 220px; object-fit: cover;
+      display: block;
+      filter: grayscale(40%) brightness(0.96) contrast(1.08);
+      transition: filter 0.4s, transform 0.4s;
+    }
+    .gallery-item:hover img {
+      filter: grayscale(0%) brightness(1.08) contrast(1.12);
+      transform: scale(1.08) rotate(-1deg);
+    }
+    .caption {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      background: linear-gradient(0deg, rgba(34,34,34,0.92) 70%, rgba(34,34,34,0.1) 100%);
+      color: #fff; padding: 0.7em 0.5em; font-size: 1.07em;
+      font-weight: bold; letter-spacing: 0.5px; text-align: center;
+      opacity: 0.96; transition: background 0.2s;
+    }
+    .gallery-item:hover .caption {
+      background: linear-gradient(0deg,#f53803cc 70%,rgba(34,34,34,0.05) 100%);
+      color: #f5d020;
+    }
+    .slider-controls {
+      display: flex; justify-content: center; gap: 1.5rem; margin-top: 1rem;
+    }
+    .slider-btn {
+      background: #f5d020;
+      color: #181818;
+      border: none;
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #0006;
+      transition: background 0.2s, color 0.2s;
+      outline: none;
+    }
+    .slider-btn:hover, .slider-btn:focus { background: #f53803; color: #fff;}
+    /* Focus Styles for Accessibility */
+    a:focus, button:focus, .slider-btn:focus {
+      outline: 3px solid #f5d020;
+      outline-offset: 2px;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .map-row { flex-direction: column; gap: 1.5rem;}
+      .map-container, .map-cta { max-width: 100%; }
+    }
+    @media (max-width: 700px) {
+      .floating-svg, .floating-tools, .floating-tools2 { display: none; }
+      .map-section { padding: 1rem 0.5rem;}
+      .map-title { font-size: 1.1rem;}
+      .gallery-section { padding: 1rem 0.2rem;}
+      h1 { font-size: 1.3rem;}
+      .gallery-item img { height: 140px;}
+    }
+    /* Footer */
+    .footer {
+      text-align:center;
+      color:#888;
+      font-size:1rem;
+      padding:1.5em 0 0.5em 0;
+      background:transparent;
+      letter-spacing:1px;
+      text-shadow:0 1px 4px #000c;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background and Overlay -->
+  <div class="bg-animate"></div>
+  <div class="overlay-animate">
+    <!-- Floating SVG barber tools -->
+    <svg class="floating-tools" viewBox="0 0 64 64">
+      <g>
+        <rect x="28" y="10" width="24" height="8" rx="4" fill="#fff8e1" stroke="#c7a008" stroke-width="2"/>
+        <rect x="20" y="18" width="24" height="8" rx="4" fill="#f53803" stroke="#fff" stroke-width="1.5"/>
+        <rect x="20" y="38" width="24" height="8" rx="4" fill="#3498db" stroke="#fff" stroke-width="1.5"/>
+      </g>
+    </svg>
+    <svg class="floating-tools2" viewBox="0 0 64 64">
+      <g>
+        <rect x="18" y="12" width="6" height="40" rx="3" fill="#f5d020" stroke="#c7a008" stroke-width="2"/>
+        <rect x="40" y="12" width="6" height="40" rx="3" fill="#f5d020" stroke="#c7a008" stroke-width="2"/>
+        <ellipse cx="32" cy="54" rx="12" ry="4" fill="#fff8e1" stroke="#c7a008" stroke-width="1.5"/>
+      </g>
+    </svg>
+  </div>
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Fama Barber Shop and Beauty Salon</h1>
+      <div class="barber-pole">
+        <div class="barber-cap"></div>
+        <div class="barber-pole-body"></div>
+        <div class="barber-base"></div>
+      </div>
+      <div style="margin-top:1em;">
+        <span style="color:#ffd700;font-size:1.2em;">⭐ 4.6</span>
+        <span style="color:#4caf50;font-weight:bold;">&nbsp;Open · Closes 7 pm</span>
+      </div>
+      <div style="margin-top:0.4em;">Barber Shop · Denton, TX</div>
+    </div>
+  </div>
+  <!-- Info Section -->
+  <main>
+    <ul>
+      <li><strong>Address:</strong> 500 N Bell Ave #109, Denton, TX 76209, United States</li>
+      <li><strong>Phone:</strong> <a href="tel:+19406129127">+1 940-612-9127</a></li>
+      <li><strong>Service comment:</strong> "Costly compared to other barbershops with better haircuts"</li>
+      <li><strong>Review Count:</strong> 116+ reviews</li>
+    </ul>
+    <div class="services-block">
+      <h2>Our Services</h2>
+      <ul>
+        <li>Haircuts for all ages</li>
+        <li>Beard trims & shaves</li>
+        <li>On-site grooming</li>
+        <li>Walk-ins & appointments welcome</li>
+      </ul>
+    </div>
+    <div class="visit-block">
+      <strong>Visit Us:</strong><br>
+      500 N Bell Ave #109,<br>
+      Denton, TX 76209, United States
+    </div>
+  </main>
+  <!-- Call-to-Action Buttons -->
+  <div class="cta-buttons">
+    <a href="https://pmcbarber.devfrend.com/" target="_blank" rel="noopener">Website</a>
+    <a href="https://maps.app.goo.gl/tAhH37Bgbp9F8jou9" target="_blank" rel="noopener">Directions</a>
+    <a href="tel:+19406129127" class="book-now-btn">Book Now</a>
+  </div>
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="map-title">Find Us on the Map</div>
+    <div class="map-row">
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3357.142134029054!2d-97.13429868481822!3d33.2200920808496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864db4b7e8d9b2b7%3A0x8b3d9d1c9c5d2e2a!2s500%20N%20Bell%20Ave%20%23109%2C%20Denton%2C%20TX%2076209%2C%20USA!5e0!3m2!1sen!2sin!4v1684152082338!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Map"></iframe>
+      </div>
+      <div class="map-cta">
+        <a href="tel:+19406129127" class="book-now-btn">Call & Book</a>
+        <p>We welcome walk-ins and appointments. Visit us for a fresh look!</p>
+      </div>
+    </div>
+  </section>
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="gallery-title">Gallery</div>
+    <div class="slider" id="gallerySlider">
+      <div class="gallery-item">
+        <img src="https://imgs.search.brave.com/lV6x-GZP3JhN7HUh1Fm3dlY3-5R5Ww6Z97V-t8sRTgQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pNS53/YWxtYXJ0aW1hZ2Vz/LmNvbS9zZW8vSGFp/ci1DdXR0aW5nLVNj/aXNzb3JzLVNoZWFy/cy1UaGlubmluZy1T/ZXQtQ0lJQ0lJLTgt/UGNzLVByb2Zlc3Np/b25hbC1IYWlyZHJl/c3NpbmctU2Npc3Nv/cnMtU2V0LUJsYWNr/Xzk5MWM5YWU0LWU5/MTctNDNlNC04YjMw/LTQwOTI5MTlkMzgw/NC5iMGY0NDFmZGMy/ODMyYzUwZDZmMGE2/NTI3Zjk1N2YxOC5w/bmc_b2RuSGVpZ2h0/PTU4MCZvZG5XaWR0/aD01ODAmb2RuQmc9/RkZGRkZG" alt="Barber at work">
+        <div class="caption">Classic Haircut</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://imgs.search.brave.com/w42hk7o_EhO5b1GSMI7EcChh5C8ydaz79Jl-00gwIbY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzIxLzE4LzU0/LzM2MF9GXzYyMTE4/NTQ2Nl9BVEQwcmFu/dkFjMjZHSnRWblM4/WXJyQUJFWThlWFZD/MS5qcGc" alt="Beard trim">
+        <div class="caption">Beard Trim</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://imgs.search.brave.com/dWwe4WggVZQ4648Z4kiMsFNHbzfrc9JcwbadIm9dLfs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9nYXRz/YnkucGgvdXBsb2Fk/L3JlZGFjdG9yL0N1/cmx5JTIwRmxhdCUy/MFRvcCUyMHdpdGgl/MjBkZXNpZ24lMjBz/aGF2ZS5qcGcuanBn"Modern style">
+        <div class="caption">Modern Style</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://imgs.search.brave.com/o68_5BGcMBgrXwLENPXwoMxVOhHIQOmUgX4J0Uk17BM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA1LzYzLzU1LzU0/LzM2MF9GXzU2MzU1/NTQwOV81aGRsd1l4/VTZQYzZTWWVKaE92/WmxvRWQ0ZmpXYTln/ai5qcGc" alt="Modern style">
+        <div class="caption">Ladies Haircut</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://imgs.search.brave.com/fnzy-SOJVoeWcQ8tYnNB3fkyHHDghkZiokROksseZGc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzExLzY3Lzg0Lzc2/LzM2MF9GXzExNjc4/NDc2ODdfMUpCYU9v/Nnl3eVFTSEpmbkJY/OFNkdlU1S1k2VW5a/ZmQuanBn" alt="Barber tools">
+        <div class="caption">Barber Tools</div>
+      </div>
+    </div>
+    <div class="slider-controls">
+      <button class="slider-btn" id="prevBtn" aria-label="Previous">&#8592;</button>
+      <button class="slider-btn" id="nextBtn" aria-label="Next">&#8594;</button>
+    </div>
+  </section>
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2025 Fama Barber Shop and Beauty Salon. All rights reserved.
+  </div>
+  <!-- Gallery Slider JS -->
+  <script>
+    // Simple responsive slider
+    const slider = document.getElementById('gallerySlider');
+    const items = slider.querySelectorAll('.gallery-item');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+    function updateSlider() {
+      const itemWidth = items[0].offsetWidth + 32; // margin
+      slider.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }
+    prevBtn.onclick = function() {
+      if (currentIndex > 0) currentIndex--;
+      else currentIndex = items.length - 1;
+      updateSlider();
+    }
+    nextBtn.onclick = function() {
+      if (currentIndex < items.length - 1) currentIndex++;
+      else currentIndex = 0;
+      updateSlider();
+    }
+    window.addEventListener('resize', updateSlider);
+    // Swipe support for mobile
+    let startX = null;
+    slider.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+    slider.addEventListener('touchend', e => {
+      if (!startX) return;
+      let dx = e.changedTouches[0].clientX - startX;
+      if (dx > 50) prevBtn.click();
+      else if (dx < -50) nextBtn.click();
+      startX = null;
+    });
+    // Initial position
+    window.onload = updateSlider;
+  </script>
+</body>
+</html>
